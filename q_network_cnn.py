@@ -1,28 +1,35 @@
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-from torchvision import transforms
 
 class QNetwork(nn.Module):
-	def __init__(self, state_size, action_size, seed, training ):
-		super(QNetwork, self).__init__()
+    def __init__(self, state_size, action_size, seed, training ):
+        super(QNetwork, self).__init__()
 
-		self.seed = torch.manual_seed(seed)
-		self.conv1 = nn.Conv2d(1,10, kernel_size=(5,5))
-		self.conv2 = nn.Conv2d(10,20, kernel_size=(5,5))
-		self.fc1 = nn.Linear(120, 84)
-		self.fc2 = nn.Linear(84, action_size)
-		self.training = training
-
-	def forward(self, state):
-		x = self.conv1(state)
-		x = F.max_pool2d(x, 2)
-		x = F.relu(x)
-		x = self.conv2(x)
-		x = F.max_pool2d(x, 2)
-		x = F.relu(x)
-		x = x.view(-1,120)
-		x = F.relu(self.fc1(x))
-		x = F.dropout(x, training=self.training)
-		x = self.fc2(x)
-		return F.log_softmax(x, dim=1)
+        self.c1=nn.Conv2d(in_channels = 3,  out_channels=6, kernel_size=5, stride=1)
+        self.r1 = nn.ReLU()
+        self.max1 = nn.MaxPool2d(kernel_size=2)
+        self.c2 = nn.Conv2d(in_channels=6, out_channels=16, kernel_size=5, stride=1, padding=0)
+        self.r2 = nn.ReLU()
+        self.max2 = nn.MaxPool2d(kernel_size=2)
+        self.c3 = nn.Conv2d(in_channels=16, out_channels=120, kernel_size=5, stride=1, padding=0)
+        self.r3 = nn.ReLU()
+        
+        self.fc4 = nn.Linear(9*9*120, 84)
+        self.r4 = nn.ReLU()
+        self.fc5 = nn.Linear(84, action_size)
+    
+    def forward(self, img):
+        output = self.c1(img)
+        output = self.r1(output)
+        output = self.max1(output)
+        output = self.c2(output)
+        output = self.r2(output)
+        output = self.max2(output)
+        output = self.c3(output)
+        output = self.r3(output)
+        output = output.view(output.size(0), -1)
+        output = self.fc4(output)
+        output = self.r4(output)
+        output = self.fc5(output)
+        return output
