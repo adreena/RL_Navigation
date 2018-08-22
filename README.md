@@ -61,6 +61,7 @@ The goal is to get an average score of +13 over 100 consecutive episodes.
    * 2 FeedForward Networks as QN_local and QN_target
    * replay buffer 
    * starting epsilon 1.0 (e-greedy)
+ 
  2- agent observes its current state from the environment and calls act module 
    * it can randomly take an action or pass the state throught the QN_local network
    * at the beginning of the training agent has more chance to explore the environment becuase epsilon is closer to 1.0
