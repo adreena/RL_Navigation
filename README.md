@@ -84,6 +84,6 @@ The goal is to get an average score of +13 over 100 consecutive episodes.
    * fc3: in:512, out:64
    * relu: activation for adding nonlinearity
    * fc4: in: 64, out: action_size
-   **Note**:I tried other combinations but this resulted in higher scores
+   * **Note**:I tried other combinations but this resulted in higher scores
     
 ### Model Architecture (Pixel Challenge):
