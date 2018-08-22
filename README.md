@@ -80,7 +80,7 @@ The goal is to get an average score of +13 over 100 consecutive episodes.
    * fc1 : in:state_size, out:64
    * relu: activation for adding nonlinearity
    * fc2: in:64, out:512
-   * * relu: activation for adding nonlinearity
+   * relu: activation for adding nonlinearity
    * fc3: in:512, out:64
    * relu: activation for adding nonlinearity
    * fc4: in: 64, out: action_size
