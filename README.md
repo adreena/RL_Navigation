@@ -58,24 +58,23 @@ The goal is to get an average score of +13 over 100 consecutive episodes.
 
 ### Model Architecture:
  * 1- DQN agent is initialized with 
-     * 2 FeedForward Networks as QN_local and QN_target
-     * replay buffer 
-     * starting epsilon 1.0 (e-greedy)
+   * 2 FeedForward Networks as QN_local and QN_target
+   * replay buffer 
+   * starting epsilon 1.0 (e-greedy)
  * 2- agent observes its current state from the environment and calls act module 
-     * it can randomly take an action or pass the state throught the QN_local network
-     * at the beginning of the training agent has more chance to explore the environment becuase epsilon is closer to 1.0
-     * but as epsilon gets smaller throught decaying process, there would be less chance for exploring and it'd use its experiences that gained through the QN_local network 
-     * each episode decreases the epsilon value for making the process greedy until a minimum valu is reached
+   * it can randomly take an action or pass the state throught the QN_local network
+   * at the beginning of the training agent has more chance to explore the environment becuase epsilon is closer to 1.0
+   * but as epsilon gets smaller throught decaying process, there would be less chance for exploring and it'd use its experiences that gained through the QN_local network 
+   * each episode decreases the epsilon value for making the process greedy until a minimum valu is reached
  * 3- action is passed to the environment and reward and the next state of the environment are returned
  * 4- agent sends the observations to step() module 
-     * state, action, reward, next_state and done are added to replay buffer for the QN_target
-     * if memory size has reached a threshold, agent collects a batch of random sample for learning for minimizing QN_local error and updating QN_target network
+   * state, action, reward, next_state and done are added to replay buffer for the QN_target
+   * if memory size has reached a threshold, agent collects a batch of random sample for learning for minimizing QN_local error and updating QN_target network
  * 5- here is the agent's learning process for the QN_target and minimizing QN_local error
-     * sends samples to QN_target for target actions
-     * sends samples to the QN_local for expected actions
-     * minimizes the expected actions error from the target actions using an optimizer
-     * updates QN_target
-  
+   * sends samples to QN_target for target actions
+   * sends samples to the QN_local for expected actions
+   * minimizes the expected actions error from the target actions using an optimizer
+   * updates QN_target
  * 6- agent continues episodes until it reaches the max episode
     
 ### Model Architecture (Pixel Challenge):
