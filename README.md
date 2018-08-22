@@ -76,5 +76,14 @@ The goal is to get an average score of +13 over 100 consecutive episodes.
    * minimizes the expected actions error from the target actions using an optimizer
    * updates QN_target
  * 6- agent continues episodes until it reaches the max episode
+ * QNework consists of 4 feed forward layers:
+   * fc1 : in:state_size, out:64
+   * relu: activation for adding nonlinearity
+   * fc2: in:64, out:512
+   * * relu: activation for adding nonlinearity
+   * fc3: in:512, out:64
+   * relu: activation for adding nonlinearity
+   * fc4: in: 64, out: action_size
+   **Note**:I tried other combinations but this resulted in higher scores
     
 ### Model Architecture (Pixel Challenge):
