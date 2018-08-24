@@ -9,7 +9,7 @@ from torchvision import transforms
 from torch.autograd import Variable
 device = 'cpu'
 LR = 5e-3
-BATCH_SIZE = 512
+BATCH_SIZE = 215
 BUFFER_SIZE = int(1e5) 
 UPDATE_RATE = 4
 GAMMA = 0.99
@@ -37,9 +37,10 @@ class Agent():
         self.memory = ReplayBuffer(action_size, BUFFER_SIZE, BATCH_SIZE, seed, device) # TODO
 
     def act(self, state, eps):
-        if self.pixels is True:
-            state = Variable(torch.from_numpy(state).float().to(device).view(state.shape[0],3,64,64))
-        else:
+#         if self.pixels is True:
+            
+            #state = Variable(torch.from_numpy(state).float().to(device).view(state.shape[0],3,32,32))
+        if not self.pixels:
             state = torch.from_numpy(state).float().unsqueeze(0).to(device)
         self.QN_local.eval()
 
@@ -51,17 +52,21 @@ class Agent():
         else:
             return int(random.choice(np.arange(self.action_size)))
 
-    def step(self, state, action, reward, next_state, done):
+    def step(self, state, action, reward, next_state, done, stack_size):
         self.memory.add(state, action, reward, next_state, done)
         self.t_step = (self.t_step + 1) % UPDATE_RATE
         if self.t_step == 0 and len(self.memory) > BATCH_SIZE:
             samples = self.memory.sample()
-            self.learn(samples, GAMMA)
+            self.learn(samples, GAMMA, stack_size)
 
-    def learn(self, experiences, gamma):
+    def learn(self, experiences, gamma, stack_size):
         states, actions, rewards, next_states, dones = experiences
-        next_states = Variable(next_states.view(next_states.shape[0],3,64,64))
-        states = Variable(states.view(states.shape[0],3,64,64))
+        
+        if self.pixels:
+            next_states = Variable(next_states) #next_states.view(next_states.shape[0],stack_size,3, stack_size,32,32))
+            states = Variable(states) #states.view(states.shape[0],3,64,64))
+#         else:
+            #todo bring back the old version stuff here
         
         _target = self.QN_target(next_states).detach().max(1)[0].unsqueeze(1) 
         action_values_target = rewards + gamma * _target * (1-dones)
