@@ -89,9 +89,11 @@ The goal is to get an average score of +13 over 100 consecutive episodes.
 ### Model Architecture (Pixel Challenge):
 
 #### Experiment 1 
+
 For this experiment, model is trained on Tesla k80 instance but cuda ran out of memory after 1129 episodes with avergae score of 6.15, which I beleive it could go higher if I could resolve gpu memory problem like adding elastic gpus or do parallel computing in pytorch.
 
 Model Architecture:
+
     * For each iteration, 3 input image frames are stacked and resized to 32x32x3, color channels are kept to improve color detection. Grayscaling images would lose a lot of infromation from them image frames as yellow belnds in floor and background.
     * input_shape: 1x3x3x32x32 (used deque for stacking frames)
     * conv3d layer1: in_channels=3, out_channels=10, kernel_size=(1,5,5), stride=1
@@ -105,6 +107,7 @@ Model Architecture:
     * fully connected layer: action_size
     
 Result:
+
     * Episode: 100	Average Score: 0.01
     * Episode: 200	Average Score: 0.132
     * Episode: 300	Average Score: 0.90
