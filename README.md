@@ -77,7 +77,8 @@ The goal is to get an average score of +13 over 100 consecutive episodes.
     * updates QN_target
  * 6- agent continues episodes until it reaches the max episode
  * QNework consists of 4 feed forward layers:
- `  * fc1 : in:state_size, out:64
+    
+  ` * fc1 : in:state_size, out:64
     * relu: activation for adding nonlinearity
     * fc2: in:64, out:512
     * relu: activation for adding nonlinearity
