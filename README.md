@@ -33,21 +33,7 @@ The state space has 37 dimensions and contains the agent's velocity, along with 
 
 2. Place the file in the DRLND GitHub repository, in the main folder, and unzip (or decompress) the file. 
 
-### Challenge: Learning from Pixels
-
-After you have successfully completed the project, if you're looking for an additional challenge, you have come to the right place!  In the project, your agent learned from information such as its velocity, along with ray-based perception of objects around its forward direction.  A more challenging task would be to learn directly from pixels!
-
-To solve this harder task, you'll need to download a new Unity environment.  This environment is almost identical to the project environment, where the only difference is that the state is an 84 x 84 RGB image, corresponding to the agent's first-person view.  (**Note**: Udacity students should not submit a project with this new environment.)
-
-You need only select the environment that matches your operating system:
-- Linux: [click here](https://s3-us-west-1.amazonaws.com/udacity-drlnd/P1/Banana/VisualBanana_Linux.zip)
-- Mac OSX: [click here](https://s3-us-west-1.amazonaws.com/udacity-drlnd/P1/Banana/VisualBanana.app.zip)
-- Windows (32-bit): [click here](https://s3-us-west-1.amazonaws.com/udacity-drlnd/P1/Banana/VisualBanana_Windows_x86.zip)
-- Windows (64-bit): [click here](https://s3-us-west-1.amazonaws.com/udacity-drlnd/P1/Banana/VisualBanana_Windows_x86_64.zip)
-
-Then, place the file in the main folder in the DRLND GitHub repository, and unzip (or decompress) the file.  Next, open `Navigation_Pixels.ipynb` and follow the instructions to learn how to use the Python API to control the agent.
-
-### Navigation Architecture
+### Navigation (Navigation.ipynb)
 
 Through episodes, agent interacts with the environment by taking actions and observing the changes coming back from the environment in form of reward, next_state and done variables. Rewards get accumulated per episode to teach the agent what action to take in specific states for maximum reward. For learning from rewards and penalties of its actions, agent uses 2 separate deep neural networks with exact same architectures, local and target networks, as well as a replay memory for using the experiences to improve its performance.
  * Replay buffer or Memory: keeps a buffer of states, actions, next_states and rewards for the target network
@@ -56,7 +42,7 @@ Through episodes, agent interacts with the environment by taking actions and obs
 
 The goal is to get an average score of +13 over 100 consecutive episodes.
 
-### Model Architecture:
+* Model Architecture: 
  * 1- DQN agent is initialized with 
    * 2 FeedForward Networks as QN_local and QN_target
    * replay buffer 
@@ -86,7 +72,35 @@ The goal is to get an average score of +13 over 100 consecutive episodes.
     * fc4: in: 64, out: action_size
     * **Note**:I tried other combinations with different batch_sizes and learning_rates but this resulted in higher scores
     
-### Model Architecture (Pixel Challenge):
+  * Result:
+    * Action Size:4, State Size:37
+    * Episode: 100	Average Score: 0.57, score:3.00
+    * Episode: 200	Average Score: 2.43, score:3.000
+    * Episode: 300	Average Score: 4.50, score:2.000
+    * Episode: 400	Average Score: 8.39, score:12.00
+    * Episode: 500	Average Score: 10.36, score:15.00
+    * Episode: 600	Average Score: 11.57, score:14.00
+    * Episode: 700	Average Score: 11.68, score:7.000
+    * Episode: 800	Average Score: 12.46, score:10.00
+    * Episode: 900	Average Score: 13.26, score:7.000
+    * Episode: 1000	Average Score: 13.14, score:12.00
+    * Episode: 1100	Average Score: 13.88, score:12.00
+    * Episode: 1200	Average Score: 12.90, score:13.00
+    * Episode: 1300	Average Score: 14.96, score:10.00
+    * Episode: 1301	Average Score: 15.04, score:18.00
+  * Codes:
+    * q_network.py
+    * replay_buffer.py
+    * dqn_agent.py
+ <hr>
+ 
+### Pixel Challenge Visual Banana: (Navigation_Pixels.ipynb)
+
+This environment is almost identical to the previous environment, where the only difference is that the state is an 84 x 84 RGB image, corresponding to the agent's first-person view. select the environment that matches your operating system:
+- Linux: [click here](https://s3-us-west-1.amazonaws.com/udacity-drlnd/P1/Banana/VisualBanana_Linux.zip)
+- Mac OSX: [click here](https://s3-us-west-1.amazonaws.com/udacity-drlnd/P1/Banana/VisualBanana.app.zip)
+- Windows (32-bit): [click here](https://s3-us-west-1.amazonaws.com/udacity-drlnd/P1/Banana/VisualBanana_Windows_x86.zip)
+- Windows (64-bit): [click here](https://s3-us-west-1.amazonaws.com/udacity-drlnd/P1/Banana/VisualBanana_Windows_x86_64.zip)
 
 #### Experiment 1 
 
@@ -120,6 +134,9 @@ For this experiment, model is trained on Tesla k80 instance but cuda ran out of 
     * Episode: 1100	Average Score: 6.32
     * Episode: 1129	Average Score: 6.15
     
-Exception: RuntimeError: CUDA error: out of memory
+* Exception: RuntimeError: CUDA error: out of memory
 
+#### Experiment 2
+
+I reduced the image size to 28x28x3 and ran the same model, result:
 
