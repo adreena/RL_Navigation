@@ -33,6 +33,8 @@ The state space has 37 dimensions and contains the agent's velocity, along with 
 
 2. Place the file in the DRLND GitHub repository, in the main folder, and unzip (or decompress) the file. 
 
+<hr>
+
 ### Navigation (Navigation.ipynb)
 
 Through episodes, agent interacts with the environment by taking actions and observing the changes coming back from the environment in form of reward, next_state and done variables. Rewards get accumulated per episode to teach the agent what action to take in specific states for maximum reward. For learning from rewards and penalties of its actions, agent uses 2 separate deep neural networks with exact same architectures, local and target networks, as well as a replay memory for using the experiences to improve its performance.
@@ -92,8 +94,9 @@ The goal is to get an average score of +13 over 100 consecutive episodes.
     * q_network.py
     * replay_buffer.py
     * dqn_agent.py
- <hr>
  
+ <hr>
+
 ### Pixel Challenge Visual Banana: (Navigation_Pixels.ipynb)
 
 This environment is almost identical to the previous environment, where the only difference is that the state is an 84 x 84 RGB image, corresponding to the agent's first-person view. select the environment that matches your operating system:
@@ -105,8 +108,12 @@ This environment is almost identical to the previous environment, where the only
 #### Experiment 1 
 
 For this experiment, model is trained on Tesla k80 instance but cuda ran out of memory after 1129 episodes with avergae score of 6.15, which I beleive it could go higher if I could resolve gpu memory problem like adding elastic gpus or do parallel computing in pytorch.
+* Codes:
+    * q_network_cnn.py
+    * replay_buffer.py (same as previous navigation)
+    * dqn_agent.py (same as previous navigation)
 
-* Model Architecture:
+* QNetwork Architecture:
     * For each iteration, 3 input image frames are stacked and resized to 32x32x3, color channels are kept to improve color detection. Grayscaling images would lose a lot of infromation from them image frames as yellow belnds in floor and background.
     * input_shape: 1x3x3x32x32 (used deque for stacking frames)
     * learning_rate = 0.001 , batch_size = 512
