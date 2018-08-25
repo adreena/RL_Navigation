@@ -7,7 +7,7 @@ import torch.nn.functional as F
 import random
 from torchvision import transforms
 from torch.autograd import Variable
-device = 'cpu'
+device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 LR = 5e-3
 BATCH_SIZE = 215
 BUFFER_SIZE = int(1e5) 
@@ -17,7 +17,7 @@ TAU= 1e-3
 from skimage.transform import resize
 
 class Agent():
-    def __init__(self, state_size, action_size, seed, training, pixels):
+    def __init__(self, state_size, action_size, seed, training, pixels, lr=LR):
         self.state_size = state_size
         self.action_size = action_size
         self.seed = random.seed(seed)
@@ -33,7 +33,7 @@ class Agent():
                 transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
         self.QN_local = QNetwork(state_size, action_size, seed, training).to(device)
         self.QN_target = QNetwork(state_size, action_size, seed, training).to(device)
-        self.optimizer = optim.Adam(self.QN_local.parameters(), lr=LR )
+        self.optimizer = optim.Adam(self.QN_local.parameters(), lr=lr )
         self.memory = ReplayBuffer(action_size, BUFFER_SIZE, BATCH_SIZE, seed, device) # TODO
 
     def act(self, state, eps):

@@ -84,6 +84,40 @@ The goal is to get an average score of +13 over 100 consecutive episodes.
    * fc3: in:512, out:64
    * relu: activation for adding nonlinearity
    * fc4: in: 64, out: action_size
-   * **Note**:I tried other combinations but this resulted in higher scores
+   * **Note**:I tried other combinations with different batch_sizes and learning_rates but this resulted in higher scores
     
 ### Model Architecture (Pixel Challenge):
+
+#### Experiment 1 
+For this experiment, model is trained on Tesla k80 instance but cuda ran out of memory after 1129 episodes with avergae score of 6.15, which I beleive it could go higher if I could resolve gpu memory problem like adding elastic gpus or do parallel computing in pytorch.
+
+Model Architecture:
+    * For each iteration, 3 input image frames are stacked and resized to 32x32x3, color channels are kept to improve color detection. Grayscaling images would lose a lot of infromation from them image frames as yellow belnds in floor and background.
+    * input_shape: 1x3x3x32x32 (used deque for stacking frames)
+    * conv3d layer1: in_channels=3, out_channels=10, kernel_size=(1,5,5), stride=1
+    * Relu layer
+    * Maxpool3d: kernel_size=(1,2,2)
+    * size calculation : 32x32x3 -> 28x28x10 -> 14x14x10
+    * conv3d layer2: in_channels=10, out_channels=32, kernel_size=(1,5,5) , stride=1
+    * Relu layer
+    * Maxpool3d: kernel_size=(1,2,2)
+    * size calculation : 14x14x10 -> 10x10x32 -> 5x5x32
+    * fully connected layer: action_size
+    
+Result:
+    * Episode: 100	Average Score: 0.01
+    * Episode: 200	Average Score: 0.132
+    * Episode: 300	Average Score: 0.90
+    * Episode: 400	Average Score: 1.07
+    * Episode: 500	Average Score: 1.83
+    * Episode: 600	Average Score: 2.34
+    * Episode: 700	Average Score: 3.25
+    * Episode: 800	Average Score: 4.59
+    * Episode: 900	Average Score: 5.35
+    * Episode: 1000	Average Score: 5.63
+    * Episode: 1100	Average Score: 6.32
+    * Episode: 1129	Average Score: 6.15
+    
+Exception: RuntimeError: CUDA error: out of memory
+
+
