@@ -71,21 +71,21 @@ The goal is to get an average score of +13 over 100 consecutive episodes.
    * state, action, reward, next_state and done are added to replay buffer for the QN_target
    * if memory size has reached a threshold, agent collects a batch of random sample for learning for minimizing QN_local error and updating QN_target network
  * 5- here is the agent's learning process for the QN_target and minimizing QN_local error
-   * sends samples to QN_target for target actions
-   * sends samples to the QN_local for expected actions
-   * minimizes the expected actions error from the target actions using an optimizer
-   * updates QN_target
+    * sends samples to QN_target for target actions
+    * sends samples to the QN_local for expected actions
+    * minimizes the expected actions error from the target actions using an optimizer
+    * updates QN_target
  * 6- agent continues episodes until it reaches the max episode
  * QNework consists of 4 feed forward layers:
-   * fc1 : in:state_size, out:64
-   * relu: activation for adding nonlinearity
-   * fc2: in:64, out:512
-   * relu: activation for adding nonlinearity
-   * fc3: in:512, out:64
-   * relu: activation for adding nonlinearity
-   * fc4: in: 64, out: action_size
-   * **Note**:I tried other combinations with different batch_sizes and learning_rates but this resulted in higher scores
-    
+ `  * fc1 : in:state_size, out:64
+    * relu: activation for adding nonlinearity
+    * fc2: in:64, out:512
+    * relu: activation for adding nonlinearity
+    * fc3: in:512, out:64
+    * relu: activation for adding nonlinearity
+    * fc4: in: 64, out: action_size
+    * **Note**:I tried other combinations with different batch_sizes and learning_rates but this resulted in higher scores
+    `
 ### Model Architecture (Pixel Challenge):
 
 #### Experiment 1 
@@ -96,6 +96,7 @@ Model Architecture:
 
     * For each iteration, 3 input image frames are stacked and resized to 32x32x3, color channels are kept to improve color detection. Grayscaling images would lose a lot of infromation from them image frames as yellow belnds in floor and background.
     * input_shape: 1x3x3x32x32 (used deque for stacking frames)
+    * learning_rate = 0.001 , batch_size = 512
     * conv3d layer1: in_channels=3, out_channels=10, kernel_size=(1,5,5), stride=1
     * Relu layer
     * Maxpool3d: kernel_size=(1,2,2)
