@@ -145,5 +145,19 @@ For this experiment, model is trained on Tesla k80 instance but cuda ran out of 
 
 #### Experiment 2
 
-I reduced the image size to 28x28x3 and ran the same model, result:
+I reduced the image size to 28x28x3 and ran the same model which also needed more gpu memory but I saved it with 7 max score, result:
 
+ * Episode: 100	Average Score: 0.14
+ * Episode: 200	Average Score: 0.66
+ * Episode: 300	Average Score: 1.97
+ * Episode: 400	Average Score: 2.35
+ * Episode: 500	Average Score: 3.29
+ * Episode: 600	Average Score: 4.37
+ * Episode: 700	Average Score: 5.35
+ * Episode: 800	Average Score: 5.23
+ * Episode: 900	Average Score: 4.66
+ * Episode: 1000	Average Score: 6.21
+ * Episode: 1100	Average Score: 6.34
+ * Episode: 1193	Average Score: 7.07
+
+ * Exception: RuntimeError: CUDA error: out of memory
