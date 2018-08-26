@@ -143,5 +143,5 @@ I reduced the image size to 28x28x3 and ran the same model which also needed mor
   * estimating the state value V(s)
   * estimating the advantage for each action A(s,a) 
 * prioritized experience replay: the idea is that some experiences may be more important than others for our training, but might occur less frequently.
-changing the sampling distributiin we try to change by using a criterion to define the priority of each tuple of experience can improve the learning process
+changing the sampling distribution by using a criterion to define the priority of each tuple of experience can improve the learning process
 * Parallel gpu processing in pytorch can improve the memory issues and acheive higher score
