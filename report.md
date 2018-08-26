@@ -59,7 +59,10 @@ The goal is to get an average score of +13 over 100 consecutive episodes.
     * replay_buffer.py
     * dqn_agent.py
     
-  ![Scores][im1]
+<p align="center">
+<img src="im1.png" width="500"/>
+</p>
+
  
  <hr>
 
@@ -128,7 +131,9 @@ I reduced the image size to 28x28x3 and ran the same model which also needed mor
 
  * Exception: RuntimeError: CUDA error: out of memory
  
- ![Challenge Scores][im2]
+ <p align="center">
+<img src="im2.png" width="500"/>
+</p>
  
  
 ### Future Work
